@@ -1,0 +1,77 @@
+<div class="container">
+    <form [formGroup]="userForm" (ngSubmit)="processUserForm()">
+        <div class="row mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstname" formControlName="firstname">
+        </div>
+        <div class="row">
+            <span class="alert alert-danger" *ngIf="userForm.get('firstname')?.errors?.['required']">
+                First name is mandatory.
+            </span>
+            <span class="alert alert-danger" *ngIf="userForm.get('firstname')?.hasError('minlength')">
+                First name min starts with 5 characters.
+            </span>
+            <span class="alert alert-danger" *ngIf="userForm.get('firstname')?.hasError('maxlength')">
+                First name max 50 characters only.
+            </span>
+        </div>
+
+        <div class="row mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastname" formControlName="lastname">
+        </div>
+        <div class="row">
+            <span class="alert alert-danger" *ngIf="userForm.get('lastname')?.errors?.['required']">
+                Last name is mandatory.
+            </span>
+            <span class="alert alert-danger" *ngIf="userForm.get('lastname')?.hasError('minLength')">
+                Last name min starts with 5 characters.
+            </span>
+            <span class="alert alert-danger" *ngIf="userForm.get('lastname')?.hasError('maxLength')">
+                Last name max 50 characters only.
+            </span>
+        </div>
+
+        <div class="row mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" formControlName="email">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>    
+        </div>
+        <div class="row">
+            <span class="alert alert-danger" *ngIf="userForm.get('email')?.errors?.['required']">
+                Email is mandatory.
+            </span>
+            <span class="alert alert-danger" *ngIf="userForm.get('email')?.errors?.['email']">
+                Please input a valid Email format.
+            </span>
+        </div>
+
+        <br><br>
+        <div class="row mb-3">
+            <div class="col mb-3">
+                <button class="btn btn-primary" type="button" (click)="addNewFood()">Add New Favourite Food</button>
+            </div>
+        </div>
+        <div class="row" formArrayName="foods">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Food Name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let food of foodArray.controls; let i = index;" [formGroup]="food1" >
+                        <td>
+                            <input type="text" class="form-control" formControlName="f1">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" (click)="deleteFood(i)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
