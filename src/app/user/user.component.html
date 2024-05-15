@@ -44,6 +44,9 @@
             <span class="alert alert-danger" *ngIf="userForm.get('email')?.errors?.['email']">
                 Please input a valid Email format.
             </span>
+            <span class="alert alert-danger" *ngIf="userForm.get('email')?.errors?.['nonWhiteSpace']">
+                White space found in Email entry.
+            </span>
         </div>
 
         <br><br>

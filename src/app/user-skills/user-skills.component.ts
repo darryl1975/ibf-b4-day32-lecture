@@ -29,17 +29,31 @@ export class UserSkillsComponent implements OnInit {
     });
   }
 
-  getSkills() : FormArray {
+  getSkills(): FormArray {
 
     return this.skillForm.get("skills") as FormArray;
   }
 
+  newSkill(): FormGroup {
+    return this.formBuilder.group({
+      Skills: '',
+      Experience: ''
+    })
+  }
+
   addSkill() {
-    
+    this.getSkills().push(this.newSkill());
+
+    // this.getSkills().push(
+    //   this.formBuilder.group({
+    //     Skills: '',
+    //     Experience: ''
+    //   })
+    // )
   }
 
   onSubmit() {
-
+    console.log(this.skillForm.value);
   }
 
 }

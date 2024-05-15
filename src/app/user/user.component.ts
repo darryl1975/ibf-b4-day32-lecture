@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, ValidationErrors, Validators } from '@angular/forms';
 import { User } from '../model/user';
 import { CommonModule } from '@angular/common';
+import { nonWhiteSpace } from '../custom-validator';
 
 @Component({
   selector: 'app-user',
@@ -23,6 +24,12 @@ export class UserComponent implements OnInit {
   user: User = new User('', '', '', []);
   food1!: FormGroup<any>;
 
+  // nonWhiteSpace = (ctrl: AbstractControl) => {
+  //   if (ctrl.value.trim().length > 0)
+
+  //     return { nonWhiteSpace: true } as ValidationErrors
+  // }
+
   constructor(private formBuilder: FormBuilder) {
 
   }
@@ -33,7 +40,7 @@ export class UserComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       lastname: this.formBuilder.control<string>('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
       firstname: this.formBuilder.control<string>('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
-      email: this.formBuilder.control<string>('', [Validators.required, Validators.email]),
+      email: this.formBuilder.control<string>('', [Validators.required, Validators.email,nonWhiteSpace]),
       foods: this.foodArray // this.formBuilder.array([])
     });
   }
