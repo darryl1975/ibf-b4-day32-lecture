@@ -1,3 +1,10 @@
+<div>
+    <input type="text" (change)="changeEvent($event)">
+</div>
+<div>
+    <p>{{title}}</p>        
+</div>
+
 <form [formGroup]="skillForm" (ngSubmit)="onSubmit()">
 
     <div class="row mb-3">
